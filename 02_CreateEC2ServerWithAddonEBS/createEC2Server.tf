@@ -12,10 +12,23 @@ terraform {
 
 resource "aws_instance" "ec2_server" {
 	ami = "ami-08962a4068733a2b6"
-	instance_type = "t2.micro"
+	instance_type = "t2.nano"
 	
 	tags = {
-		Name = "SJ-terraform-instance"
-		Day = 1
+		Name = var.name
+		Day = var.day
+	}
+	count = var.servers
+	availability_zone = var.availability_zone
+}
+
+resource "aws_ebs_volume" "ebs_volume" {
+	count = var.servers
+	availability_zone = var.availability_zone
+	size = 4
+	
+	tags = {
+		Name = var.name
+		Day = var.day
 	}
 }
