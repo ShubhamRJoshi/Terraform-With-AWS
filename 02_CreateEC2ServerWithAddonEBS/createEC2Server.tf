@@ -9,3 +9,13 @@ terraform {
 		region = "us-east-2"
 	}
 }
+
+resource "aws_instance" "ec2_server" {
+	ami = "ami-08962a4068733a2b6"
+	instance_type = "t2.micro"
+	
+	tags = {
+		Name = "SJ-terraform-instance"
+		Day = 1
+	}
+}
