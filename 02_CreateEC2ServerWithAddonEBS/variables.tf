@@ -13,3 +13,7 @@ variable "day" {
 variable "name" {
 	default = "SJ-Terraform"
 }
+
+variable "device_letter" {
+	default = "f"
+}

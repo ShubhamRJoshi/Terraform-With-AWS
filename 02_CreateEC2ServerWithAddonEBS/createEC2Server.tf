@@ -20,6 +20,7 @@ resource "aws_instance" "ec2_server" {
 	}
 	count = var.servers
 	availability_zone = var.availability_zone
+	key_name = "terraform"
 }
 
 resource "aws_ebs_volume" "ebs_volume" {
@@ -42,3 +43,11 @@ resource "aws_volume_attachment" "ebs_volume_attachment" {
 }
 
 # terraform apply --auto-approve -var servers=2
+
+output "public_ips_of_ec2_server" {
+	value = aws_instance.ec2_server.*.public_ip
+}
+
+output "private_ips_of_ec2_server" {
+	value = aws_instance.ec2_server.*.private_ip
+}
