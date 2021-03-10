@@ -1,4 +1,5 @@
 resource "null_resource" "mountEBS_on_EC2" {
+	depends_on = [ aws_volume_attachment.ebs_volume_attachment ]
 	count = var.servers				# should import all the required variables before using them
 	provisioner "remote-exec" {		# remote-exec, local-exec, file
 		connection {
