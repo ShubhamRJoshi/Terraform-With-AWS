@@ -26,3 +26,9 @@ resource "aws_lb_target_group" "targer_group_port_80" {
     vpc_id = data.aws_vpc.UD_vpc.id
     target_type = "instance"
 }
+
+resource "aws_lb_target_group_attachment" "attach_servers_to_target_group" {
+    for_each = toset(data.aws_instances.target_servers.ids)
+    target_group_arn = aws_lb_target_group.targer_group_port_80.arn
+    target_id = each.value
+}
